@@ -19,9 +19,6 @@ class MainPage(GeneralPage):
     def wait_for_page_to_load(self):
         WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located(self.page_header_locator))
 
-    def set_window_size(self, width, height):
-        self.browser.set_window_size(width, height)
-
     def get_page_header(self):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(self.page_header_locator))
 
