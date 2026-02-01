@@ -31,6 +31,10 @@ class MainPage(GeneralPage):
     def get_button_login(self):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'login-button')))
 
+    def get_login_error_message(self):
+        return WebDriverWait(self.browser, 5).until(
+            EC.visibility_of_element_located((By.XPATH, '//h3[@data-test="error"]')))
+
     ### Osszetettebb muveletek:
 
     def do_login(self, username, password):
@@ -39,4 +43,4 @@ class MainPage(GeneralPage):
         self.get_input_username().send_keys(username)
         self.get_input_password().send_keys(password)
         self.get_button_login().click()
-        self.logged_in_page.wait_for_page_to_load()
+
