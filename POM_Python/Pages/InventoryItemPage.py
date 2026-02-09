@@ -12,7 +12,8 @@ class InventoryItemPage(GeneralPage):
         super().__init__(browser, URL)
 
     def get_back_to_products_button(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'back-to-products')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'back-to-products')))
 
     def get_item_image(self):
         return WebDriverWait(self.browser, 5).until(

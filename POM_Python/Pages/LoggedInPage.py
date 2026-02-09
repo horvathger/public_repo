@@ -24,11 +24,12 @@ class LoggedInPage(GeneralPage):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(self.page_header_locator))
 
     def get_hamburger_menu_button(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'react-burger-menu-btn')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'react-burger-menu-btn')))
 
     def get_hamburger_menu_close_button(self):
-        return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.ID, 'react-burger-cross-btn')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'react-burger-cross-btn')))
 
     def wait_for_hamburger_menu_to_open(self):
         end_time = time.time() + 10
@@ -49,20 +50,20 @@ class LoggedInPage(GeneralPage):
         raise TimeoutError("Element did not stop moving within timeout.")
 
     def get_hamburger_menu_all_items(self):
-        return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.ID, 'inventory_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'inventory_sidebar_link')))
 
     def get_hamburger_menu_about(self):
-        return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.ID, 'about_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'about_sidebar_link')))
 
     def get_hamburger_menu_logout(self):
-        return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.ID, 'logout_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'logout_sidebar_link')))
 
     def get_hamburger_menu_reset_app_state(self):
-        return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.ID, 'reset_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'reset_sidebar_link')))
 
     def get_shopping_cart_button(self):
         return WebDriverWait(self.browser, 5).until(

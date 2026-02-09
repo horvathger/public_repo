@@ -1,8 +1,5 @@
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from POM_Python.Pages.GeneralPage import GeneralPage
@@ -21,7 +18,8 @@ class LoggedInPage(GeneralPage):
         WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located(self.page_header_locator))
 
     def get_button_continue_shopping(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'continue-shopping')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.ID, 'continue-shopping')))
 
     def get_button_checkout(self):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(self.page_header_locator))

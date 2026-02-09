@@ -1,10 +1,10 @@
 import allure
 
+from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
+from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Pages.LoggedInPage  import LoggedInPage
 from POM_Python.Util.create_driver import create_preconfigured_chrome_driver
-from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, LOCKED_OUT_USER_LOGIN_DATA, PROBLEM_USER_LOGIN_DATA, \
-    PERFORMANCE_GLITCH_USER_LOGIN_DATA, ERROR_USER_LOGIN_DATA, VISUAL_USER_LOGIN_DATA
+
 
 class TestLoggedInPageSmoke:
     def setup_method(self):
@@ -13,7 +13,7 @@ class TestLoggedInPageSmoke:
         self.logged_in_page = LoggedInPage(browser)
 
     def teardown_method(self):
-        pass  # self.main_page.quit()
+        self.main_page.quit()
 
     @allure.title('A hamburger menü megnyitásának és tartalmának ellenőrzése.')
     @allure.description('A teszteset célja, hogy ellenőrizze a hamburger menü megnyitását és a benne található elemek '
@@ -22,7 +22,7 @@ class TestLoggedInPageSmoke:
     @allure.tag('logged in', 'standard_user')
     def test_hamburger_menu_content(self):
         self.main_page.do_login(STANDARD_USER_LOGIN_DATA["username"], STANDARD_USER_LOGIN_DATA["password"])
-        self.logged_in_page.get_hamburger_menu_button.click()
+        self.logged_in_page.get_hamburger_menu_button().click()
         self.logged_in_page.wait_for_hamburger_menu_to_open()
         assert self.logged_in_page.get_hamburger_menu_close_button().is_displayed()
         assert self.logged_in_page.get_hamburger_menu_close_button().is_enabled()
@@ -77,7 +77,8 @@ class TestLoggedInPageSmoke:
             assert product_price.is_displayed()
 
     @allure.title('A termékeknél található "Add To Cart" gombok ellenőrzése.')
-    @allure.description('A teszteset célja, hogy ellenőrizze a termékek mellett található "Add To Cart" gomb megjelenik-e az oldalon.')
+    @allure.description(
+        'A teszteset célja, hogy ellenőrizze a termékek mellett található "Add To Cart" gomb megjelenik-e az oldalon.')
     @allure.severity(allure.severity_level.TRIVIAL)
     @allure.tag('logged in', 'standard_user')
     def test_product_add_to_cart_buttons_visibility(self):

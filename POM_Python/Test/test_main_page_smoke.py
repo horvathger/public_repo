@@ -10,7 +10,7 @@ class TestMainPageSmoke:
         self.main_page = MainPage(browser)
 
     def teardown_method(self):
-        pass  # self.main_page.quit()
+        self.main_page.quit()
 
     @allure.title('Oldal fejszövegének ellenőrzése')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a főoldal megfelelően betöltődik-e.')
