@@ -3,9 +3,11 @@ import allure
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Util.create_driver import create_preconfigured_chrome_driver
+from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
-
+@allure.parent_suite("UI Tests")
+@allure.suite("Logged in page smoke tests")
+@allure.sub_suite("Test cases")
 class TestLoggedInPageSmoke:
     def setup_method(self):
         browser = create_preconfigured_chrome_driver()

@@ -1,9 +1,12 @@
 import allure
 
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Util.create_driver import create_preconfigured_chrome_driver
+from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
 
+@allure.parent_suite("UI Tests")
+@allure.suite("Main page smoke tests")
+@allure.sub_suite("Test cases")
 class TestMainPageSmoke:
     def setup_method(self):
         browser = create_preconfigured_chrome_driver()

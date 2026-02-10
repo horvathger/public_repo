@@ -1,4 +1,4 @@
-from POM_Python.Util.create_driver import create_preconfigured_chrome_driver
+from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
 
 class GeneralPage(object):

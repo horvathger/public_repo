@@ -5,9 +5,12 @@ from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, LOCKED_OUT_U
 from POM_Python.Data.error_messages import LOGIN_ERROR_MESSAGE
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Util.create_driver import create_preconfigured_chrome_driver
+from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
 
+@allure.parent_suite("UI Tests")
+@allure.suite("Main page UI tests")
+@allure.sub_suite("Test cases")
 class TestMainPage:
     def setup_method(self):
         browser = create_preconfigured_chrome_driver()
@@ -19,7 +22,7 @@ class TestMainPage:
 
     @allure.title('Belépés standard felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a standard_user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.tag('login', 'standard_user')
     def test_login_standard_user(self):
         self.main_page.do_login(STANDARD_USER_LOGIN_DATA["username"], STANDARD_USER_LOGIN_DATA["password"])
@@ -29,7 +32,7 @@ class TestMainPage:
 
     @allure.title('Belépés megkísérlése locked out felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a locked out user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.MINOR)
     @allure.tag('login', 'locked_out_user')
     def test_login_locked_out_user(self):
         self.main_page.do_login(LOCKED_OUT_USER_LOGIN_DATA["username"], LOCKED_OUT_USER_LOGIN_DATA["password"])
@@ -37,7 +40,7 @@ class TestMainPage:
 
     @allure.title('Belépés megkísérlése problem user felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a problem user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.tag('login', 'problem_user')
     def test_login_problem_user(self):
         self.main_page.do_login(PROBLEM_USER_LOGIN_DATA["username"], PROBLEM_USER_LOGIN_DATA["password"])
@@ -46,7 +49,7 @@ class TestMainPage:
 
     @allure.title('Belépés megkísérlése performance_glitch_user felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a performance_glitch_user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.tag('login', 'performance_glitch_user')
     def test_login_performance_glitch_user(self):
         self.main_page.do_login(PERFORMANCE_GLITCH_USER_LOGIN_DATA["username"],
@@ -56,7 +59,7 @@ class TestMainPage:
 
     @allure.title('Belépés megkísérlése error_user felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a error_user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.tag('login', 'error_user')
     def test_login_error_user(self):
         self.main_page.do_login(ERROR_USER_LOGIN_DATA["username"], ERROR_USER_LOGIN_DATA["password"])
@@ -65,7 +68,7 @@ class TestMainPage:
 
     @allure.title('Belépés megkísérlése visual_user felhasználóként')
     @allure.description('A teszteset célja annak ellenőrzése, hogy a visual_user be tud-e lépni.')
-    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.severity(allure.severity_level.NORMAL)
     @allure.tag('login', 'visual_user')
     def test_login_visual_user(self):
         self.main_page.do_login(VISUAL_USER_LOGIN_DATA["username"], VISUAL_USER_LOGIN_DATA["password"])
