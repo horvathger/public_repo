@@ -12,8 +12,7 @@ class InventoryItemPage(GeneralPage):
         super().__init__(browser, URL)
 
     def get_back_to_products_button(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'back-to-products')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'back-to-products')))
 
     def get_item_image(self):
         return WebDriverWait(self.browser, 5).until(
@@ -33,7 +32,7 @@ class InventoryItemPage(GeneralPage):
 
     def get_add_to_cart_button(self):
         return WebDriverWait(self.browser, 5).until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@data-test="add-to-cart"]')))
+            EC.visibility_of_element_located((By.XPATH, '//button[@data-test="add-to-cart"]')))
 
     def get_remove_from_cart_button(self):
         return WebDriverWait(self.browser, 5).until(
