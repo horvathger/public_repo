@@ -1,5 +1,6 @@
 import time
 
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -24,12 +25,10 @@ class LoggedInPage(GeneralPage):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(self.page_header_locator))
 
     def get_hamburger_menu_button(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'react-burger-menu-btn')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'react-burger-menu-btn')))
 
     def get_hamburger_menu_close_button(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'react-burger-cross-btn')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'react-burger-cross-btn')))
 
     def wait_for_hamburger_menu_to_open(self):
         end_time = time.time() + 10
@@ -50,20 +49,16 @@ class LoggedInPage(GeneralPage):
         raise TimeoutError("Element did not stop moving within timeout.")
 
     def get_hamburger_menu_all_items(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'inventory_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'inventory_sidebar_link')))
 
     def get_hamburger_menu_about(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'about_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'about_sidebar_link')))
 
     def get_hamburger_menu_logout(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'logout_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'logout_sidebar_link')))
 
     def get_hamburger_menu_reset_app_state(self):
-        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
-            (By.ID, 'reset_sidebar_link')))
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'reset_sidebar_link')))
 
     def get_shopping_cart_button(self):
         return WebDriverWait(self.browser, 5).until(
@@ -128,3 +123,31 @@ class LoggedInPage(GeneralPage):
     def get_footer_linkedin_icon(self):
         return WebDriverWait(self.browser, 5).until(
             EC.visibility_of_element_located((By.XPATH, '//a[@data-test="social-linkedin"]')))
+
+    def social_media_icon_check(self, url, xpath_string):
+        # - az aktualisan nyitott ablakok szamat elmentem egy valtozoba (ez ertelemszeruen egy lesz)
+        number_of_open_tabs = len(self.browser.window_handles)
+
+        # - legorgetek a lap aljara es megkeresem a megfelelo sm ikont majd rakattintok
+        self.go_to_footer()
+
+        WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable((By.XPATH, f'{xpath_string}'))).click()
+
+        # ellenorzom, hogy uj ablakban nyilt-e meg a sm oldal
+        assert len(self.browser.window_handles) == number_of_open_tabs + 1
+
+        # atvaltok a sm ablakara es ellenorzom, hogy az url megfelelo-e
+        original_window = self.browser.window_handles[0]
+        new_tab = self.browser.window_handles[1]
+
+        self.browser.switch_to.window(new_tab)
+        return self.browser.current_url == url
+
+        # a fuggvenyt a belepes utan, a fooldalon meghívva a fooldal aljara gorget a footerig.
+
+    def go_to_footer(self):
+        footer = WebDriverWait(self.browser, 5).until(
+            EC.presence_of_element_located((By.XPATH, '//footer[@data-test="footer"]')))
+        action = ActionChains(self.browser)
+        action.scroll_to_element(footer)
+        action.perform()

@@ -30,3 +30,12 @@ class GeneralPage(object):
 
     def set_window_size(self, width, height):
         self.browser.set_window_size(width, height)
+
+    def get_window_handle(self):
+        return self.browser.current_window_handle
+
+    def get_list_of_window_handles(self):
+        return self.browser.window_handles
+
+    def get_number_of_window_handles(self):
+        return len(self.browser.window_handles)
