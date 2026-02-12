@@ -2,6 +2,7 @@ import allure
 
 from POM_Python.Data.social_media_testdata import TWITTER_TESTDATA, FACEBOOK_TESTDATA, LINKEDIN_TESTDATA
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
+from POM_Python.Data.url_testdata import LOGGED_IN_URL_TESTDATA, MAIN_PAGE_URL_TESTDATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
@@ -17,9 +18,9 @@ class TestLoggedInPageSmoke:
         self.logged_in_page = LoggedInPage(browser)
 
     def teardown_method(self):
-        self.main_page.quit()
+        pass #self.main_page.quit()
 
-    @allure.title('A hamburger menüből az Abuot oldal megnyitásának az ellenőrzése.')
+    @allure.title('A hamburger menüből az About oldal megnyitásának az ellenőrzése.')
     @allure.description('A teszteset célja, hogy ellenőrizzük a hamburger menüben található About menüpont működik-e,'
                         ' új ablakban (tabon) megnyitja-e a saucelabs.com weboldalt.')
     @allure.severity(allure.severity_level.TRIVIAL)
@@ -38,6 +39,21 @@ class TestLoggedInPageSmoke:
         # nyíljon meg, ezért a teszteset elbukása elfogadható. Amennyiben a saucelabs.com új ablakban (tabon)
         # nyílik meg, akkor a teszteset sikeres lesz.
         assert number_of_window_handles_before != number_of_window_handles_after
+
+    @allure.title('A hamburger menüből a logout gomb ellenőrzése.')
+    @allure.description('A teszteset célja, hogy ellenőrizzük a hamburger menüben található Logout menüpont működik-e,'
+                        ' valóban kilép-e a bejelentkezett felhasználó, és visszavisz-e a főoldalra (login oldalra).')
+    @allure.severity(allure.severity_level.TRIVIAL)
+    @allure.tag('logged in', 'logout', 'standard_user')
+    def test_hamburger_menu_logout_button(self):
+        self.main_page.do_login(STANDARD_USER_LOGIN_DATA["username"], STANDARD_USER_LOGIN_DATA["password"])
+        assert self.logged_in_page.get_current_url() == LOGGED_IN_URL_TESTDATA
+        self.logged_in_page.get_hamburger_menu_button().click()
+        self.logged_in_page.wait_for_hamburger_menu_to_open()
+        self.logged_in_page.get_hamburger_menu_logout().click()
+        self.main_page.wait_for_page_to_load()
+        assert self.main_page.get_current_url() == MAIN_PAGE_URL_TESTDATA
+
 
     # Ellenorizzuk, hogy a fooldal aljan talalhato kozossegi media ikonok a megfelelo platform ceges oldalara
     # mutatnak-e, es rakattintva uj tabon jelennek-e meg.
