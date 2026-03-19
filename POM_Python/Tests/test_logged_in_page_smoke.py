@@ -5,6 +5,7 @@ from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
+
 @allure.parent_suite("UI Tests")
 @allure.suite("Logged in page smoke tests")
 @allure.sub_suite("Test cases")

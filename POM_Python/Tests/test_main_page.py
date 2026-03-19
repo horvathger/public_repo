@@ -1,8 +1,8 @@
 import allure
 
+from POM_Python.Data.error_messages import LOGIN_ERROR_MESSAGE
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, LOCKED_OUT_USER_LOGIN_DATA, \
     PROBLEM_USER_LOGIN_DATA, PERFORMANCE_GLITCH_USER_LOGIN_DATA, ERROR_USER_LOGIN_DATA, VISUAL_USER_LOGIN_DATA
-from POM_Python.Data.error_messages import LOGIN_ERROR_MESSAGE
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver

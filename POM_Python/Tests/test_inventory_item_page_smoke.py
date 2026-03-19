@@ -19,7 +19,7 @@ class TestInventoryItemPageSmoke:
         self.inventory_item_page = InventoryItemPage(browser)
 
     def teardown_method(self):
-        pass  # self.main_page.quit()
+        self.main_page.quit()
 
     @allure.title('Az Inventory item page "Back to products" gombjának láthatósága')
     @allure.description('A teszteset célja, hogy ellenőrizzük hogy a "Back to products" gomb látható és '
