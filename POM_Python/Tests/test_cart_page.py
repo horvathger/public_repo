@@ -1,6 +1,7 @@
 import allure
 
 from POM_Python.Data.cart_testdata import CART_TESTDATA
+from POM_Python.Data.checkout_step_one_testdata import CHECKOUT_STEP_ONE_PAGE_HEADER
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
 from POM_Python.Pages.CartPage import CartPage
 from POM_Python.Pages.CheckoutStepOnePage import CheckoutStepOnePage
@@ -58,4 +59,4 @@ class TestCartPage:
                                                      STANDARD_USER_LOGIN_DATA["password"])
         self.cart_page.get_button_checkout().click()
         assert self.cart_page.get_current_url() == self.checkout_step_one_page.url
-        assert self.checkout_step_one_page.get_page_header().text == 'Checkout: Your Information'
+        assert self.checkout_step_one_page.get_page_header().text == CHECKOUT_STEP_ONE_PAGE_HEADER

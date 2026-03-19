@@ -41,6 +41,10 @@ class CheckoutStepOnePage(GeneralPage):
     def get_button_cancel(self):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located((By.ID, 'cancel')))
 
+    def get_error_message(self):
+        return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
+            (By.XPATH, '//h3[@data-test="error"]')))
+
     def goto_checkout_step_one_page(self, username, password):
         self.main_page.do_login(username, password)
         self.logged_in_page.wait_for_page_to_load()

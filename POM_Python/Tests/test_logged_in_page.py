@@ -1,7 +1,7 @@
 import allure
 
 from POM_Python.Data.social_media_testdata import TWITTER_TESTDATA, FACEBOOK_TESTDATA, LINKEDIN_TESTDATA
-from POM_Python.Data.url_testdata import LOGGED_IN_URL_TESTDATA, MAIN_PAGE_URL_TESTDATA
+from POM_Python.Data.url_testdata import LOGGED_IN_URL_TESTDATA, MAIN_PAGE_URL_TESTDATA, ABOUT_URL_TESTDATA
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
@@ -32,7 +32,7 @@ class TestLoggedInPageSmoke:
         self.logged_in_page.wait_for_hamburger_menu_to_open()
         self.logged_in_page.get_hamburger_menu_about().click()
         number_of_window_handles_after = self.logged_in_page.get_number_of_window_handles()
-        assert self.logged_in_page.get_current_url() == "https://saucelabs.com/"
+        assert self.logged_in_page.get_current_url() == ABOUT_URL_TESTDATA
 
         # Mivel a saucelabs.com nem új ablakban (tabon) nyílik meg, ezért a teszteset elbukik.
         # Üzleti érdek, hogy a webshop ablaka mindenképpen nyitva maradjon és a saucelabs.com egy új ablakban (tabon)

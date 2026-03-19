@@ -5,3 +5,5 @@ CART_PAGE_URL_TESTDATA = "https://www.saucedemo.com/cart.html"
 CHECKOUT_STEP_ONE_PAGE_URL_TESTDATA = "https://www.saucedemo.com/checkout-step-one.html"
 CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA = "https://www.saucedemo.com/checkout-step-two.html"
 CHECKOUT_COMPLETE_PAGE_URL_TESTDATA = "https://www.saucedemo.com/checkout-complete.html"
+
+ABOUT_URL_TESTDATA = "https://saucelabs.com/"

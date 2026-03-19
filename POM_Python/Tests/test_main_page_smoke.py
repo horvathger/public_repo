@@ -1,5 +1,6 @@
 import allure
 
+from POM_Python.Data.main_page_testdata import LOGGED_IN_PAGE_TITLE
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
@@ -23,9 +24,9 @@ class TestMainPageSmoke:
         self.main_page.visit()
         self.main_page.wait_for_page_to_load()
 
-        assert self.main_page.get_title() == 'Swag Labs'
+        assert self.main_page.get_title() == LOGGED_IN_PAGE_TITLE
         assert self.main_page.get_current_url() == self.main_page.url
-        assert self.main_page.get_page_header().text == 'Swag Labs'
+        assert self.main_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
 
     @allure.title('A főoldalon lévő username mező ellenőrzése')
     @allure.description(

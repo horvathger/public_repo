@@ -1,0 +1,1 @@
+LOGGED_IN_PAGE_TITLE = "Swag Labs"

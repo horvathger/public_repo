@@ -1,6 +1,7 @@
 import allure
 
 from POM_Python.Data.error_messages import LOGIN_ERROR_MESSAGE
+from POM_Python.Data.main_page_testdata import LOGGED_IN_PAGE_TITLE
 from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, LOCKED_OUT_USER_LOGIN_DATA, \
     PROBLEM_USER_LOGIN_DATA, PERFORMANCE_GLITCH_USER_LOGIN_DATA, ERROR_USER_LOGIN_DATA, VISUAL_USER_LOGIN_DATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
@@ -27,7 +28,7 @@ class TestMainPage:
     def test_login_standard_user(self):
         self.main_page.do_login(STANDARD_USER_LOGIN_DATA["username"], STANDARD_USER_LOGIN_DATA["password"])
         self.logged_in_page.wait_for_page_to_load()
-        assert self.logged_in_page.get_page_header().text == 'Swag Labs'
+        assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
         assert self.logged_in_page.get_current_url() == self.logged_in_page.url
 
     @allure.title('Belépés megkísérlése locked out felhasználóként')
@@ -44,7 +45,7 @@ class TestMainPage:
     @allure.tag('login', 'problem_user')
     def test_login_problem_user(self):
         self.main_page.do_login(PROBLEM_USER_LOGIN_DATA["username"], PROBLEM_USER_LOGIN_DATA["password"])
-        assert self.logged_in_page.get_page_header().text == 'Swag Labs'
+        assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
         assert self.logged_in_page.get_current_url() == self.logged_in_page.url
 
     @allure.title('Belépés megkísérlése performance_glitch_user felhasználóként')
@@ -54,7 +55,7 @@ class TestMainPage:
     def test_login_performance_glitch_user(self):
         self.main_page.do_login(PERFORMANCE_GLITCH_USER_LOGIN_DATA["username"],
                                 PERFORMANCE_GLITCH_USER_LOGIN_DATA["password"])
-        assert self.logged_in_page.get_page_header().text == 'Swag Labs'
+        assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
         assert self.logged_in_page.get_current_url() == self.logged_in_page.url
 
     @allure.title('Belépés megkísérlése error_user felhasználóként')
@@ -63,7 +64,7 @@ class TestMainPage:
     @allure.tag('login', 'error_user')
     def test_login_error_user(self):
         self.main_page.do_login(ERROR_USER_LOGIN_DATA["username"], ERROR_USER_LOGIN_DATA["password"])
-        assert self.logged_in_page.get_page_header().text == 'Swag Labs'
+        assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
         assert self.logged_in_page.get_current_url() == self.logged_in_page.url
 
     @allure.title('Belépés megkísérlése visual_user felhasználóként')
@@ -72,5 +73,5 @@ class TestMainPage:
     @allure.tag('login', 'visual_user')
     def test_login_visual_user(self):
         self.main_page.do_login(VISUAL_USER_LOGIN_DATA["username"], VISUAL_USER_LOGIN_DATA["password"])
-        assert self.logged_in_page.get_page_header().text == 'Swag Labs'
+        assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
         assert self.logged_in_page.get_current_url() == self.logged_in_page.url
