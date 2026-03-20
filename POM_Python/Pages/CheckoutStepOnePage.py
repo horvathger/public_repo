@@ -6,13 +6,12 @@ from POM_Python.Pages.CartPage import CartPage
 from POM_Python.Pages.GeneralPage import GeneralPage
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-
-URL = 'https://www.saucedemo.com/checkout-step-one.html'
+from POM_Python.Data.url_testdata import CHECKOUT_STEP_ONE_PAGE_URL_TESTDATA
 
 
 class CheckoutStepOnePage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)
+        super().__init__(browser, CHECKOUT_STEP_ONE_PAGE_URL_TESTDATA)
         self.main_page = MainPage(self.browser)
         self.logged_in_page = LoggedInPage(self.browser)
         self.cart_page = CartPage(self.browser)

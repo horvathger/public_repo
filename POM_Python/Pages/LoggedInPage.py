@@ -1,5 +1,6 @@
 import time
 
+from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,13 +8,12 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from POM_Python.Pages.GeneralPage import GeneralPage
-
-URL = 'https://www.saucedemo.com/inventory.html'
+from POM_Python.Data.url_testdata import LOGGED_IN_URL_TESTDATA
 
 
 class LoggedInPage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)
+        super().__init__(browser, LOGGED_IN_URL_TESTDATA)
 
     page_header_locator = (By.CLASS_NAME, 'app_logo')
 
@@ -129,6 +129,13 @@ class LoggedInPage(GeneralPage):
     def get_footer_linkedin_icon(self):
         return WebDriverWait(self.browser, 5).until(
             EC.visibility_of_element_located((By.XPATH, '//a[@data-test="social-linkedin"]')))
+
+    def is_alert_present(self):
+        try:
+            WebDriverWait(self.browser, 5).until(EC.alert_is_present())
+            return True
+        except TimeoutException:
+            return False
 
     def social_media_icon_check(self, url, xpath_string):
         # - az aktualisan nyitott ablakok szamat elmentem egy valtozoba (ez ertelemszeruen egy lesz)

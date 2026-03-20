@@ -4,13 +4,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from POM_Python.Pages.CheckoutStepTwoPage import CheckoutStepTwoPage
 from POM_Python.Pages.GeneralPage import GeneralPage
-
-URL = 'https://www.saucedemo.com/checkout-step-two.html'
+from POM_Python.Data.url_testdata import CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
 
 
 class CheckoutCompletePage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)
+        super().__init__(browser, CHECKOUT_COMPLETE_PAGE_URL_TESTDATA)
         self.checkout_step_two_page = CheckoutStepTwoPage(self.browser)
 
     page_header_locator = (By.XPATH, '//span[contains(text(), "Checkout: Complete!")]')

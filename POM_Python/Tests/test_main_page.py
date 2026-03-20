@@ -28,6 +28,7 @@ class TestMainPage:
         allure.dynamic.title(f'Belépés {user["username"]} felhasználóval')
         allure.dynamic.description(f'A teszteset célja annak ellenőrzése, hogy a {user["username"]} user be tud-e '
                                    f'lépni.')
+        allure.dynamic.tag(f'{user["username"]}')
         self.main_page.do_login(user["username"], user["password"])
         if user["username"] == "locked_out_user":
             assert self.main_page.get_login_error_message().text == LOGIN_ERROR_MESSAGE

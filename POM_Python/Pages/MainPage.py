@@ -4,13 +4,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from POM_Python.Pages.GeneralPage import GeneralPage
 from POM_Python.Pages.LoggedInPage import LoggedInPage
-
-URL = 'https://www.saucedemo.com/'
+from POM_Python.Data.url_testdata import MAIN_PAGE_URL_TESTDATA
 
 
 class MainPage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)  # self.login_page = LoginPage(self.browser)
+        super().__init__(browser, MAIN_PAGE_URL_TESTDATA)
         self.logged_in_page = LoggedInPage(self.browser)
 
     page_header_locator = (By.CLASS_NAME, 'login_logo')

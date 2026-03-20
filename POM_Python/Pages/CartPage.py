@@ -5,13 +5,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from POM_Python.Pages.GeneralPage import GeneralPage
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
+from POM_Python.Data.url_testdata import CART_PAGE_URL_TESTDATA
 
-URL = 'https://www.saucedemo.com/cart.html'
+# URL = 'https://www.saucedemo.com/cart.html'
 
 
 class CartPage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)
+        super().__init__(browser, CART_PAGE_URL_TESTDATA)
         self.main_page = MainPage(browser)
         self.logged_in_page = LoggedInPage(browser)
 

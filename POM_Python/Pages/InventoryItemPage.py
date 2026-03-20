@@ -3,13 +3,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from POM_Python.Pages.GeneralPage import GeneralPage
-
-URL = 'https://www.saucedemo.com/inventory-item.html'
+from POM_Python.Data.url_testdata import INVENTORY_ITEM_PAGE_URL_TESTDATA
 
 
 class InventoryItemPage(GeneralPage):
     def __init__(self, browser=None):
-        super().__init__(browser, URL)
+        super().__init__(browser, INVENTORY_ITEM_PAGE_URL_TESTDATA)
 
     def get_back_to_products_button(self):
         return WebDriverWait(self.browser, 5).until(EC.visibility_of_element_located(
