@@ -43,3 +43,5 @@ class MainPage(GeneralPage):
         self.get_input_username().send_keys(username)
         self.get_input_password().send_keys(password)
         self.get_button_login().click()
+
+
