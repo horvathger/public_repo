@@ -30,7 +30,11 @@ class TestLoggedInPageSmoke:
         number_of_window_handles_before = self.logged_in_page.get_number_of_window_handles()
         self.logged_in_page.get_hamburger_menu_button().click()
         self.logged_in_page.wait_for_hamburger_menu_to_open()
+        # A teszteset során képernyőképeket készítünk a hamburger menüre kattintás előtt és után, hogy dokumentáljuk
+        # a teszteset futását, és megkönnyítsük a hibakeresést, amennyiben a teszteset elbukik.
+        self.logged_in_page.save_screenshot('before_click_about.png')
         self.logged_in_page.get_hamburger_menu_about().click()
+        self.logged_in_page.save_screenshot('after_click_about.png')
         number_of_window_handles_after = self.logged_in_page.get_number_of_window_handles()
         assert self.logged_in_page.get_current_url() == ABOUT_URL_TESTDATA
 

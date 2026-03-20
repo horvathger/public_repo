@@ -1,3 +1,7 @@
+import os
+
+import allure
+
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
 
@@ -17,7 +21,19 @@ class GeneralPage(object):
         self.browser.quit()
 
     def save_screenshot(self, filename):
-        self.browser.save_screenshot(filename)
+        # A képernyőképek egy "Screenshots" nevű könyvtárba lesznek elmentve, amely a Tests mappában jön létre,
+        # ha még nem létezik.
+        folder = "Screenshots"
+        os.makedirs(folder, exist_ok=True)
+        self.browser.save_screenshot(f"{folder}/{filename}.png")
+
+        # Az Allure jelentésben is csatoljuk a képernyőképet, hogy könnyen megtekinthető legyen a tesztesetek futása
+        # során.
+        allure.attach(
+            self.browser.get_screenshot_as_png(),
+            name=filename,
+            attachment_type=allure.attachment_type.PNG
+        )
 
     def get_title(self):
         return self.browser.title
