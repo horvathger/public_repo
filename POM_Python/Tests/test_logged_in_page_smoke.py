@@ -2,7 +2,7 @@ import allure
 import pytest
 from selenium.common import UnexpectedAlertPresentException
 
-from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, ALL_USERS_LOGIN_DATA, ALLOWED_USERS_LOGIN_DATA
+from POM_Python.Data.user_testdata import ALLOWED_USERS_LOGIN_DATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
@@ -146,9 +146,12 @@ class TestLoggedInPageSmoke:
             sorted_list_of_names = sorted(list_of_names, reverse=True)
             assert list_of_names == sorted_list_of_names
         except UnexpectedAlertPresentException:
+            self.logged_in_page.save_screenshot(f'after_sort_za_{user["username"]}.png')
             pytest.fail("Alert üzenet jelent meg a rendezés során, ami megakadályozta a teszteset végrehajtását.")
-
-
+        except AssertionError:
+            self.logged_in_page.save_screenshot(f'after_sort_za_{user["username"]}.png')
+            pytest.fail("A termékek Z-A szerinti rendezése nem működik megfelelően, "
+                        "a megjelenített sorrend nem helyes.")
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
@@ -168,7 +171,12 @@ class TestLoggedInPageSmoke:
             sorted_list_of_prices = sorted(list_of_prices)
             assert list_of_prices == sorted_list_of_prices
         except UnexpectedAlertPresentException:
+            self.logged_in_page.save_screenshot(f'after_sort_price_low_high_{user["username"]}.png')
             pytest.fail("Alert üzenet jelent meg a rendezés során, ami megakadályozta a teszteset végrehajtását.")
+        except AssertionError:
+            self.logged_in_page.save_screenshot(f'after_sort_price_low_high_{user["username"]}.png')
+            pytest.fail("A termékek ár szerinti növekvő rendezése nem működik megfelelően, "
+                        "a megjelenített sorrend nem helyes.")
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
@@ -176,7 +184,7 @@ class TestLoggedInPageSmoke:
     def test_sort_items_by_price_high_to_low_smoke(self, user):
         allure.dynamic.title(f'A termékek ár szerinti csökkenő rendezésének ellenőrzése. ({user["username"]} user)')
         allure.dynamic.description(f'A teszteset célja, hogy {user["username"]} userrel ellenőrizze a termékek ár '
-                                    f'szerinti csökkenő rendezésének működését.')
+                                   f'szerinti csökkenő rendezésének működését.')
         allure.dynamic.tag(f'{user["username"]}')
         self.main_page.do_login(user["username"], user["password"])
         try:
@@ -188,7 +196,12 @@ class TestLoggedInPageSmoke:
             sorted_list_of_prices = sorted(list_of_prices, reverse=True)
             assert list_of_prices == sorted_list_of_prices
         except UnexpectedAlertPresentException:
+            self.logged_in_page.save_screenshot(f'after_sort_high_low_{user["username"]}.png')
             pytest.fail("Alert üzenet jelent meg a rendezés során, ami megakadályozta a teszteset végrehajtását.")
+        except AssertionError:
+            self.logged_in_page.save_screenshot(f'after_sort_high_low_{user["username"]}.png')
+            pytest.fail("A termékek ár szerinti csökkenő rendezése nem működik megfelelően, "
+                        "a megjelenített sorrend nem helyes.")
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)

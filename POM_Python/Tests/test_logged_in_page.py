@@ -1,8 +1,9 @@
 import allure
+import pytest
 
 from POM_Python.Data.social_media_testdata import TWITTER_TESTDATA, FACEBOOK_TESTDATA, LINKEDIN_TESTDATA
 from POM_Python.Data.url_testdata import LOGGED_IN_URL_TESTDATA, MAIN_PAGE_URL_TESTDATA, ABOUT_URL_TESTDATA
-from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA
+from POM_Python.Data.user_testdata import STANDARD_USER_LOGIN_DATA, ALLOWED_USERS_LOGIN_DATA
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
@@ -20,29 +21,44 @@ class TestLoggedInPageSmoke:
     def teardown_method(self):
         self.main_page.quit()
 
+    @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.title('A hamburger menüből az About oldal megnyitásának az ellenőrzése.')
     @allure.description('A teszteset célja, hogy ellenőrizzük a hamburger menüben található About menüpont működik-e,'
                         ' új ablakban (tabon) megnyitja-e a saucelabs.com weboldalt.')
     @allure.severity(allure.severity_level.TRIVIAL)
     @allure.tag('logged in', 'about', 'standard_user', 'fail', 'BT-SAUCE-2026-1', 'SAUCE-US-1')
-    def test_hamburger_menu_about_open(self):
-        self.main_page.do_login(STANDARD_USER_LOGIN_DATA["username"], STANDARD_USER_LOGIN_DATA["password"])
+    def test_hamburger_menu_about_open(self, user):
+        allure.dynamic.title(f'A hamburger menüből az About oldal megnyitásának az ellenőrzése. ({user["username"]} '
+                             f'felhasználó)')
+        allure.dynamic.description(
+            f'A teszteset célja, hogy {user["username"]} userrel ellenőrizzük a hamburger menüben található About '
+            f'menüpont működik-e, új ablakban (tabon) megnyitja-e a saucelabs.com weboldalt.')
+        allure.dynamic.tag(f'{user["username"]}')
+        self.main_page.do_login(user["username"], user["password"])
         number_of_window_handles_before = self.logged_in_page.get_number_of_window_handles()
         self.logged_in_page.get_hamburger_menu_button().click()
         self.logged_in_page.wait_for_hamburger_menu_to_open()
         # A teszteset során képernyőképeket készítünk a hamburger menüre kattintás előtt és után, hogy dokumentáljuk
         # a teszteset futását, és megkönnyítsük a hibakeresést, amennyiben a teszteset elbukik.
-        self.logged_in_page.save_screenshot('before_click_about.png')
         self.logged_in_page.get_hamburger_menu_about().click()
-        self.logged_in_page.save_screenshot('after_click_about.png')
         number_of_window_handles_after = self.logged_in_page.get_number_of_window_handles()
-        assert self.logged_in_page.get_current_url() == ABOUT_URL_TESTDATA
-
+        try:
+            assert self.logged_in_page.get_current_url() == ABOUT_URL_TESTDATA
+        except AssertionError:
+            self.logged_in_page.save_screenshot(f'after_click_about_bad_url{user["username"]}.png')
+            pytest.fail(f'Az Aboutra kattintva nem a saucelabs.com oldal nyílt meg, '
+                        f'hanem a {self.logged_in_page.get_current_url()} url.')
         # Mivel a saucelabs.com nem új ablakban (tabon) nyílik meg, ezért a teszteset elbukik.
         # Üzleti érdek, hogy a webshop ablaka mindenképpen nyitva maradjon és a saucelabs.com egy új ablakban (tabon)
         # nyíljon meg, ezért a teszteset elbukása elfogadható. Amennyiben a saucelabs.com új ablakban (tabon)
         # nyílik meg, akkor a teszteset sikeres lesz.
-        assert number_of_window_handles_before != number_of_window_handles_after
+        try:
+            assert number_of_window_handles_before != number_of_window_handles_after
+        except AssertionError:
+            self.logged_in_page.save_screenshot(f'after_click_about_new_tab{user["username"]}.png')
+            pytest.fail('A saucelabs.com oldal nem új ablakban (tabon) nyílt meg, '
+                        'hanem ugyanabban az ablakban (tabon).')
+
 
     @allure.title('A hamburger menüből a logout gomb ellenőrzése.')
     @allure.description('A teszteset célja, hogy ellenőrizzük a hamburger menüben található Logout menüpont működik-e,'
