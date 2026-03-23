@@ -9,30 +9,46 @@ from POM_Python.Pages.MainPage import MainPage
 from POM_Python.Utils.create_driver import create_preconfigured_chrome_driver
 
 
+@pytest.fixture
+def driver():
+    driver = create_preconfigured_chrome_driver()
+    yield driver
+    driver.quit()
+
+
+@pytest.fixture
+def pages(driver, user):
+    main_page = MainPage(driver)
+    logged_in_page = LoggedInPage(driver)
+
+    main_page.do_login(user["username"], user["password"])
+
+    return {
+        "main_page": main_page,
+        "logged_in_page": logged_in_page,
+    }
+
+
 @allure.parent_suite("UI Tests")
 @allure.suite("Main page UI tests")
 @allure.sub_suite("Test cases")
 class TestMainPage:
-    def setup_method(self):
-        browser = create_preconfigured_chrome_driver()
-        self.main_page = MainPage(browser)
-        self.logged_in_page = LoggedInPage(browser)
-
-    def teardown_method(self):
-        self.main_page.quit()
 
     @pytest.mark.parametrize("user", ALL_USERS_LOGIN_DATA, ids=[u["username"] for u in ALL_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.tag('login')
-    def test_login_every_user(self, user):
+    def test_login_every_user(self, user, pages):
         allure.dynamic.title(f'Belépés {user["username"]} felhasználóval')
         allure.dynamic.description(f'A teszteset célja annak ellenőrzése, hogy a {user["username"]} user be tud-e '
                                    f'lépni.')
         allure.dynamic.tag(f'{user["username"]}')
-        self.main_page.do_login(user["username"], user["password"])
+
+        logged_in_page = pages["logged_in_page"]
+        main_page = pages["main_page"]
+
         if user["username"] == "locked_out_user":
-            assert self.main_page.get_login_error_message().text == LOGIN_ERROR_MESSAGE
+            assert main_page.get_login_error_message().text == LOGIN_ERROR_MESSAGE
         else:
-            self.logged_in_page.wait_for_page_to_load()
-            assert self.logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
-            assert self.logged_in_page.get_current_url() == self.logged_in_page.url
+            logged_in_page.wait_for_page_to_load()
+            assert logged_in_page.get_page_header().text == LOGGED_IN_PAGE_TITLE
+            assert logged_in_page.get_current_url() == logged_in_page.url

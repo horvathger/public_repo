@@ -2,11 +2,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from POM_Python.Data.url_testdata import CHECKOUT_STEP_ONE_PAGE_URL_TESTDATA
 from POM_Python.Pages.CartPage import CartPage
 from POM_Python.Pages.GeneralPage import GeneralPage
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Data.url_testdata import CHECKOUT_STEP_ONE_PAGE_URL_TESTDATA
 
 
 class CheckoutStepOnePage(GeneralPage):
@@ -45,9 +45,6 @@ class CheckoutStepOnePage(GeneralPage):
             (By.XPATH, '//h3[@data-test="error"]')))
 
     def goto_checkout_step_one_page(self, username, password):
-        self.main_page.do_login(username, password)
-        self.logged_in_page.wait_for_page_to_load()
         self.cart_page.goto_cart_page_with_two_items(username, password)
-        self.cart_page.wait_for_page_to_load()
         self.cart_page.get_button_checkout().click()
         self.wait_for_page_to_load()

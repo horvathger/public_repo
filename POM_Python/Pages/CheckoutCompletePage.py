@@ -2,14 +2,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from POM_Python.Data.url_testdata import CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
 from POM_Python.Pages.CheckoutStepTwoPage import CheckoutStepTwoPage
 from POM_Python.Pages.GeneralPage import GeneralPage
-from POM_Python.Data.url_testdata import CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
 
 
 class CheckoutCompletePage(GeneralPage):
     def __init__(self, browser=None):
         super().__init__(browser, CHECKOUT_COMPLETE_PAGE_URL_TESTDATA)
+
         self.checkout_step_two_page = CheckoutStepTwoPage(self.browser)
 
     page_header_locator = (By.XPATH, '//span[contains(text(), "Checkout: Complete!")]')
@@ -35,5 +36,5 @@ class CheckoutCompletePage(GeneralPage):
 
     def goto_checkout_complete_page(self, username, password, first_name, last_name, postal_code):
         self.checkout_step_two_page.goto_checkout_step_two_page(username, password, first_name, last_name, postal_code)
-        WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable((By.ID, 'finish'))).click()
+        self.checkout_step_two_page.get_button_finish().click()
         self.wait_for_page_to_load()

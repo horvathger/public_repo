@@ -2,10 +2,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from POM_Python.Data.url_testdata import CART_PAGE_URL_TESTDATA
 from POM_Python.Pages.GeneralPage import GeneralPage
 from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
-from POM_Python.Data.url_testdata import CART_PAGE_URL_TESTDATA
+
 
 # URL = 'https://www.saucedemo.com/cart.html'
 
@@ -58,7 +59,6 @@ class CartPage(GeneralPage):
 
     def goto_cart_page_with_two_items(self, username, password):
         self.main_page.do_login(username, password)
-        self.logged_in_page.wait_for_page_to_load()
         self.logged_in_page.get_add_to_cart_button_list()[0].click()
         self.logged_in_page.get_add_to_cart_button_list()[1].click()
         self.logged_in_page.get_shopping_cart_button().click()
