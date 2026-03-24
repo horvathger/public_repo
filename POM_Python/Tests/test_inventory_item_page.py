@@ -31,13 +31,13 @@ def pages(driver, user):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Inventory item page tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 008")
 class TestInventoryItemPage:
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
-    @allure.tag('inventory item', 'item name')
+    @allure.tag('inventory item', 'item name','fail', 'BT-SAUCE-2026-2', 'SAUCE-US-2')
     def test_inventory_item_page_and_logged_in_page_product_name_comparison(self, user, pages):
         allure.dynamic.title(f'Az Inventory item page-en és a Logged in page-en a termékek neveinek összehasonlítása '
                              f'({user["username"]} felhasználó)')
@@ -69,7 +69,7 @@ class TestInventoryItemPage:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
-    @allure.tag('inventory item', 'item image')
+    @allure.tag('inventory item', 'item image','fail', 'BT-SAUCE-2026-2', 'SAUCE-US-2')
     def test_inventory_item_page_and_logged_in_page_product_image_comparison(self, user, pages):
         allure.dynamic.title(f'Az Inventory item page-en és a Logged in page-en a termékek képeinek összehasonlítása '
                              f'({user["username"]} felhasználó)')
@@ -92,7 +92,7 @@ class TestInventoryItemPage:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
-    @allure.tag('inventory item', 'item description')
+    @allure.tag('inventory item', 'item description','fail', 'BT-SAUCE-2026-2', 'SAUCE-US-2')
     def test_inventory_item_page_and_logged_in_page_product_description_comparison(self, user, pages):
         allure.dynamic.title(f'Az Inventory item page-en és a Logged in page-en a termékek leírásainak '
                              f'összehasonlítása ({user["username"]} felhasználó)')
@@ -115,7 +115,7 @@ class TestInventoryItemPage:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
-    @allure.tag('inventory item', 'item price')
+    @allure.tag('inventory item', 'item price','fail', 'BT-SAUCE-2026-2', 'SAUCE-US-2')
     def test_inventory_item_page_and_logged_in_page_product_price_comparison(self, user, pages):
         allure.dynamic.title(f'Az Inventory item page-en és a Logged in page-en a termékek árainak összehasonlítása '
                              f'({user["username"]} felhasználó)')

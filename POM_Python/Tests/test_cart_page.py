@@ -32,9 +32,9 @@ def pages(driver, user):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Cart page UI tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 001")
 class TestCartPage:
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.NORMAL)
@@ -73,9 +73,9 @@ class TestCartPage:
     @allure.severity(allure.severity_level.NORMAL)
     @allure.tag('cart')
     def test_cart_page_checkout_button(self, user, pages):
-        allure.dynamic.title(f'A Cart Page oldalon a "Checkout" gomb működésének ellenőrzése ({user["username"]} '
+        allure.dynamic.title(f'A Cart Page oldalon a "Checkout" gomb működésének ellenőrzése ({user["username"]}'
                              f'felhasználó)')
-        allure.description(f'A teszteset célja annak ellenőrzése, hogy {user["username"]} userrel belépve, a '
+        allure.dynamic.description(f'A teszteset célja annak ellenőrzése, hogy {user["username"]} userrel belépve, a '
                            f'bevásárlókosárban a "Checkout" gomb megnyomásával továbbjutunk-e a checkout formra.')
         allure.dynamic.tag(f'{user["username"]}')
         cart_page = pages["cart_page"]

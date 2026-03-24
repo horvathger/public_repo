@@ -34,9 +34,9 @@ def user(request):
     return request.param
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Checkout Step Two page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 006")
 class TestCheckoutStepTwoPageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
@@ -109,7 +109,7 @@ class TestCheckoutStepTwoPageSmoke:
     @allure.tag('checkout_step_two', 'price')
     def test_checkout_step_two_page_button_cancel_functionality(self, user, pages):
         allure.dynamic.title(f'A Checkout Step Two Page oldalon a Cancel gomb működésének ellenőrzése '
-                             f'({user["username"]} userrel).')
+                             f'({user["username"]} felhasználó).')
         allure.dynamic.description(f'A teszteset célja annak ellenőrzése, hogy {user["username"]} userrel belépve, '
                                    f'a Checkout Step Two Page-en a Cancel gomb megnyomásával visszajutunk-e az előző'
                                    f' oldalra.')

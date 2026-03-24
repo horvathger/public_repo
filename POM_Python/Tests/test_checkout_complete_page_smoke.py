@@ -1,5 +1,6 @@
 import allure
 import pytest
+from selenium.common import TimeoutException
 
 from POM_Python.Data.checkout_complete_testdata import (CHECKOUT_COMPLETE_PAGE_HEADER_TESTDATA,
                                                         CHECKOUT_COMPLETE_PAGE_COMPLETE_MESSAGE_BODY_TESTDATA,
@@ -45,9 +46,9 @@ def user(request):
     return request.param
 
 
-@allure.parent_suite("UI Tests")
-@allure.suite("Checkout Step Two page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.parent_suite("SAUCE - 26 project")
+@allure.suite("Checkout Complete page smoke tests")
+@allure.sub_suite("Test Cycle - 003")
 class TestCheckoutCompletePageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
@@ -61,12 +62,15 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
-        checkout_complete_page.goto_checkout_complete_page(
-            user["username"],
-            user["password"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        try:
+            checkout_complete_page.goto_checkout_complete_page(
+                user["username"],
+                user["password"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        except TimeoutException:
+            pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
@@ -90,12 +94,15 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
-        checkout_complete_page.goto_checkout_complete_page(
-            user["username"],
-            user["password"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        try:
+            checkout_complete_page.goto_checkout_complete_page(
+                user["username"],
+                user["password"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        except TimeoutException:
+            pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
@@ -119,12 +126,15 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
-        checkout_complete_page.goto_checkout_complete_page(
-            user["username"],
-            user["password"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        try:
+            checkout_complete_page.goto_checkout_complete_page(
+                user["username"],
+                user["password"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        except TimeoutException:
+            pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
@@ -148,12 +158,15 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
-        checkout_complete_page.goto_checkout_complete_page(
-            user["username"],
-            user["password"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        try:
+            checkout_complete_page.goto_checkout_complete_page(
+                user["username"],
+                user["password"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        except TimeoutException:
+            pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
@@ -179,12 +192,15 @@ class TestCheckoutCompletePageSmoke:
 
         logged_in_page = pages["logged_in_page"]
 
-        checkout_complete_page.goto_checkout_complete_page(
-            user["username"],
-            user["password"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        try:
+            checkout_complete_page.goto_checkout_complete_page(
+                user["username"],
+                user["password"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+        except TimeoutException:
+            pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA

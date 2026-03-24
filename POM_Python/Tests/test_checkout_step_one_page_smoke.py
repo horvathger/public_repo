@@ -28,9 +28,9 @@ def user(request):
     return request.param
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Checkout Step One page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 005")
 class TestCheckoutStepOnePageSmoke:
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -106,7 +106,7 @@ class TestCheckoutStepOnePageSmoke:
     @allure.severity(allure.severity_level.TRIVIAL)
     @allure.tag('checkout_step_one', 'smoke')
     def test_checkout_step_one_page_button_cancel_visibility(self, user, pages):
-        allure.dynamic.title(f'A Checkout Step One oldalon a Cancel gomb ellenőrzése ({user["username"]} ')
+        allure.dynamic.title(f'A Checkout Step One oldalon a Cancel gomb ellenőrzése ({user["username"]} felhasználó).')
         allure.dynamic.description(f'A teszteset célja annak ellenőrzése, hogy {user["username"]} userrel belépve, '
                                    f'a Checkout Step One Page-en megjelenik-e a Cancel gomb és interaktív-e.')
         allure.dynamic.tag(f'{user["username"]}')

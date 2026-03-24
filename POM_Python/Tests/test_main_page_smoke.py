@@ -25,9 +25,9 @@ def pages(driver):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Main page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 013")
 class TestMainPageSmoke:
 
     @allure.title('Oldal fejszövegének ellenőrzése')

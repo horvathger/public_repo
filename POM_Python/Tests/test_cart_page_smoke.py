@@ -25,9 +25,9 @@ def pages(driver, user):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Cart page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 002")
 class TestCartPageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])

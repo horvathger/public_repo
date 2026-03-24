@@ -38,9 +38,9 @@ def user(request):
     return request.param
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Checkout Step Two page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 007")
 class TestCheckoutStepTwoPageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],

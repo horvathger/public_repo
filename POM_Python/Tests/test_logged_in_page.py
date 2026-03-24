@@ -29,9 +29,9 @@ def pages(driver, user):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Logged in page tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 010")
 class TestLoggedInPageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
@@ -72,7 +72,7 @@ class TestLoggedInPageSmoke:
     @allure.severity(allure.severity_level.TRIVIAL)
     @allure.tag('logged in', 'logout')
     def test_hamburger_menu_logout_button(self, user, pages):
-        allure.dynamic.title(f'A hamburger menüből a logout gomb ellenőrzése ({user["username"]}.')
+        allure.dynamic.title(f'A hamburger menüből a logout gomb ellenőrzése, {user["username"]} felhasználóval.')
         allure.dynamic.description(f'A teszteset célja, hogy ellenőrizzük {user["username"]} userrel, hogy a '
                                    f'hamburger menüben található Logout menüpont működik-e, valóban kilép-e a '
                                    f'bejelentkezett felhasználó, és visszavisz-e a főoldalra (login oldalra).')

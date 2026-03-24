@@ -32,9 +32,9 @@ def pages(driver, user):
     }
 
 
-@allure.parent_suite("UI Tests")
+@allure.parent_suite("SAUCE - 26 project")
 @allure.suite("Inventory item page smoke tests")
-@allure.sub_suite("Test cases")
+@allure.sub_suite("Test Cycle - 009")
 class TestInventoryItemPageSmoke:
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
     @allure.severity(allure.severity_level.TRIVIAL)
