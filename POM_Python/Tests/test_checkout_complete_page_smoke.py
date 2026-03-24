@@ -48,7 +48,7 @@ def user(request):
 @allure.parent_suite("UI Tests")
 @allure.suite("Checkout Step Two page smoke tests")
 @allure.sub_suite("Test cases")
-class TestCheckoutStepTwoPageSmoke:
+class TestCheckoutCompletePageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -68,6 +68,13 @@ class TestCheckoutStepTwoPageSmoke:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
+        try:
+            assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_complete_page.save_screenshot(f'PH_ch_comp_page_url_check_{user["username"]}')
+            pytest.fail(f'Az aktuális weboldal URL-je nem egyezik a Checkout Complete Page URL-jével.'
+                        f' ({user["username"]})')
+
         assert checkout_complete_page.get_page_header().is_displayed()
         assert checkout_complete_page.get_page_header().text == CHECKOUT_COMPLETE_PAGE_HEADER_TESTDATA
 
@@ -83,13 +90,18 @@ class TestCheckoutStepTwoPageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
-
         checkout_complete_page.goto_checkout_complete_page(
             user["username"],
             user["password"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+
+        try:
+            assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_complete_page.save_screenshot(f'MH_ch_comp_url_fail_{user["username"]}')
+            pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
 
         assert checkout_complete_page.get_message_header().is_displayed()
         assert (checkout_complete_page.get_message_header().text ==
@@ -114,6 +126,12 @@ class TestCheckoutStepTwoPageSmoke:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
+        try:
+            assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_complete_page.save_screenshot(f'MB_ch_comp_url_fail_{user["username"]}')
+            pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
+
         assert checkout_complete_page.get_message_text().is_displayed()
         assert (checkout_complete_page.get_message_text().text ==
                 CHECKOUT_COMPLETE_PAGE_COMPLETE_MESSAGE_BODY_TESTDATA)
@@ -137,6 +155,12 @@ class TestCheckoutStepTwoPageSmoke:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
+        try:
+            assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_complete_page.save_screenshot(f'BH_vis_ch_comp_url_fail_{user["username"]}')
+            pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
+
         assert checkout_complete_page.get_back_home_button().is_displayed()
         assert checkout_complete_page.get_back_home_button().is_enabled()
 
@@ -155,13 +179,18 @@ class TestCheckoutStepTwoPageSmoke:
 
         logged_in_page = pages["logged_in_page"]
 
-
         checkout_complete_page.goto_checkout_complete_page(
             user["username"],
             user["password"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+
+        try:
+            assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_complete_page.save_screenshot(f'BH_funk_ch_comp_url_fail_{user["username"]}')
+            pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
 
         url_before_click = checkout_complete_page.get_current_url()
         checkout_complete_page.get_back_home_button().click()

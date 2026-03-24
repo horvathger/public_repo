@@ -32,6 +32,7 @@ def pages(driver):
         "logged_in_page": logged_in_page
     }
 
+
 @pytest.fixture
 def user(request):
     return request.param
@@ -55,15 +56,14 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
+        assert checkout_step_two_page.get_current_url() == CHECKOUT_STEP_TWO_URL
         assert checkout_step_two_page.get_page_header().is_displayed()
         assert checkout_step_two_page.get_page_header().text == CHECKOUT_STEP_TWO_PAGE_HEADER
-        assert checkout_step_two_page.get_current_url() == CHECKOUT_STEP_TWO_URL
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -79,17 +79,16 @@ class TestCheckoutStepTwoPageSmoke:
         logged_in_page = pages["logged_in_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
         assert checkout_step_two_page.get_items_quantity_list() != []
 
         shopping_cart_item_counter = logged_in_page.get_number_of_items_in_cart()
         assert len(checkout_step_two_page.get_items_quantity_list()) == shopping_cart_item_counter
         assert len(checkout_step_two_page.get_items_quantity_list()) == len(checkout_step_two_page.get_items_list())
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -104,15 +103,14 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_item_name_list()[0].is_displayed()
         assert checkout_step_two_page.get_item_name_list()[0].text == CART_TESTDATA['cart_item_1']['name']
         assert checkout_step_two_page.get_item_name_list()[1].is_displayed()
         assert checkout_step_two_page.get_item_name_list()[1].text == CART_TESTDATA['cart_item_2']['name']
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -127,10 +125,10 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
         assert checkout_step_two_page.get_item_description_list()[0].is_displayed()
         assert checkout_step_two_page.get_item_description_list()[0].text == CART_TESTDATA['cart_item_1'][
@@ -138,7 +136,6 @@ class TestCheckoutStepTwoPageSmoke:
         assert checkout_step_two_page.get_item_description_list()[1].is_displayed()
         assert checkout_step_two_page.get_item_description_list()[1].text == CART_TESTDATA['cart_item_2'][
             'description']
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -153,15 +150,14 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_item_price_list()[0].is_displayed()
         assert checkout_step_two_page.get_item_price_list()[0].text == CART_TESTDATA['cart_item_1']['price']
         assert checkout_step_two_page.get_item_price_list()[1].is_displayed()
         assert checkout_step_two_page.get_item_price_list()[1].text == CART_TESTDATA['cart_item_2']['price']
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -176,13 +172,12 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_payment_info().is_displayed()
         assert checkout_step_two_page.get_payment_info().text == CHECKOUT_STEP_TWO_PAGE_PAYMENT_INFO_TESTDATA
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -197,10 +192,10 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_shipping_info().is_displayed()
         assert checkout_step_two_page.get_shipping_info().text == CHECKOUT_STEP_TWO_PAGE_SHIPPING_INFO_TESTDATA
 
@@ -217,10 +212,10 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_item_total().is_displayed()
         assert checkout_step_two_page.get_item_total().text == CHECKOUT_STEP_TWO_PAGE_ITEM_TOTAL_TESTDATA
 
@@ -237,13 +232,12 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_tax().is_displayed()
         assert checkout_step_two_page.get_tax().text == CHECKOUT_STEP_TWO_PAGE_TAX_TESTDATA
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -258,13 +252,12 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_total().is_displayed()
         assert checkout_step_two_page.get_total().text == CHECKOUT_STEP_TWO_PAGE_TOTAL_TESTDATA
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -279,13 +272,12 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_button_cancel().is_displayed()
         assert checkout_step_two_page.get_button_cancel().is_enabled()
-
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -300,9 +292,9 @@ class TestCheckoutStepTwoPageSmoke:
         checkout_step_two_page = pages["checkout_step_two_page"]
 
         checkout_step_two_page.goto_checkout_step_two_page(STANDARD_USER_LOGIN_DATA["username"],
-                                                                STANDARD_USER_LOGIN_DATA["password"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
-                                                                CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+                                                           STANDARD_USER_LOGIN_DATA["password"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
+                                                           CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
         assert checkout_step_two_page.get_button_finish().is_displayed()
         assert checkout_step_two_page.get_button_finish().is_enabled()

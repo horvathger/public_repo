@@ -83,7 +83,11 @@ class TestInventoryItemPage:
             item_image_main_page = logged_in_page.get_product_img_list()[item].get_attribute("src")
             logged_in_page.get_product_img_list()[item].click()
             item_image_inventory_item_page = inventory_item_page.get_item_image().get_attribute("src")
-            assert item_image_main_page == item_image_inventory_item_page
+            try:
+                assert item_image_main_page == item_image_inventory_item_page
+            except AssertionError:
+                pytest.fail(f'Az Inventory Item Page-en és a Logged In Page-en a termék képe nem egyezik meg. '
+                            f'({user["username"]} felhasználó)')
             inventory_item_page.get_back_to_products_button().click()
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])

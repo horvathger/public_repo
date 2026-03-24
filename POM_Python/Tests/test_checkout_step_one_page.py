@@ -55,7 +55,13 @@ class TestCheckoutStepOnePage:
         checkout_step_one_page.get_input_last_name().send_keys(CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['last_name'])
         checkout_step_one_page.get_input_postal_code().send_keys(CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
-        assert checkout_step_one_page.get_current_url() == CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA
+
+        try:
+            assert checkout_step_one_page.get_current_url() == CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_step_one_page.save_screenshot(f'step_one_positive_{user["username"]}')
+            pytest.fail(f'A pozitív ágon kitöltött step one form után a Continuera kattintva nem lép tovább '
+                        f'a step two page-re. ({user["username"]})')
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -78,7 +84,12 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
 
-        assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_FIRSTNAME
+        try:
+            assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_FIRSTNAME
+        except AssertionError:
+            checkout_step_one_page.save_screenshot(f'step_one_without_firstname_{user["username"]}')
+            pytest.fail(f'A firstname üresen hagyásával a Continuera kattintva nem megfelelő hibaüzenet jelenik meg. '
+                        f'({user["username"]})')
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -101,7 +112,15 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
 
+        try:
+            assert checkout_step_one_page.get_current_url() != CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA
+        except AssertionError:
+            checkout_step_one_page.save_screenshot(f'step_one_form_validation_fail_{user["username"]}')
+            pytest.fail(f'A lastname üresen hagyásával a Continue-ra kattintva továbblép a következő oldalra, a '
+                        f'form validációja nélkül. ({user["username"]})')
+
         assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_LASTNAME
+
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA],
                              indirect=True)
@@ -124,4 +143,10 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['last_name'])
         checkout_step_one_page.get_button_continue().click()
 
-        assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_POSTALCODE
+        try:
+            assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_POSTALCODE
+        except AssertionError:
+            (checkout_step_one_page.save_screenshot
+             (f'step_one_form_empty_postalcode_errormessage_{user["username"]}'))
+            pytest.fail(f'A postalcode üresen hagyásával a Continue-ra kattintva nem a megfelelő hibaüzenet jelenik '
+                        f'meg. ({user["username"]})')

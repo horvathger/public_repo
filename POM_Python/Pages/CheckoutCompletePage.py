@@ -37,4 +37,3 @@ class CheckoutCompletePage(GeneralPage):
     def goto_checkout_complete_page(self, username, password, first_name, last_name, postal_code):
         self.checkout_step_two_page.goto_checkout_step_two_page(username, password, first_name, last_name, postal_code)
         self.checkout_step_two_page.get_button_finish().click()
-        self.wait_for_page_to_load()
