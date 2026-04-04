@@ -33,6 +33,8 @@ class TestCheckoutStepOnePage:
         checkout_step_one_page.get_input_postal_code().send_keys(CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
 
+        # A "Continue" gomb megnyomása után ellenőrizzük, hogy a jelenlegi URL megegyezik-e
+        # a Checkout Step Two page URL-jével.
         try:
             assert checkout_step_one_page.get_current_url() == CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA
         except AssertionError:
@@ -61,6 +63,8 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
 
+        # A "Continue" gomb megnyomása után ellenőrizzük, hogy a felbukkanó hibaüzenet megegyezik-e a megfelelő
+        # hibaüzenettel.
         try:
             assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_FIRSTNAME
         except AssertionError:
@@ -89,6 +93,8 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['postal_code'])
         checkout_step_one_page.get_button_continue().click()
 
+        # A "Continue" gomb megnyomása után ellenőrizzük, hogy a jelenlegi URL nem egyezik-e meg a
+        # Checkout Step Two page URL-jével, és hogy a felbukkanó hibaüzenet megegyezik-e a megfelelő hibaüzenettel.
         try:
             assert checkout_step_one_page.get_current_url() != CHECKOUT_STEP_TWO_PAGE_URL_TESTDATA
         except AssertionError:
@@ -120,6 +126,8 @@ class TestCheckoutStepOnePage:
             CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA['last_name'])
         checkout_step_one_page.get_button_continue().click()
 
+        # A "Continue" gomb megnyomása után ellenőrizzük, hogy a felbukkanó hibaüzenet megegyezik-e a megfelelő
+        # hibaüzenettel.
         try:
             assert checkout_step_one_page.get_error_message().text == CHECKOUT_STEP_ONE_ERROR_MESSAGE_EMPTY_POSTALCODE
         except AssertionError:

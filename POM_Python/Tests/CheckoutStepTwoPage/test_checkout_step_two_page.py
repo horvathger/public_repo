@@ -32,6 +32,11 @@ class TestCheckoutStepTwoPage:
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+
+        # Az egyes termékek árának és mennyiségének lekérése a Checkout Step Two Page-en, majd az egyes termékek árának
+        # és mennyiségének összeszorzása és az így kapott értékek összeadása egy változóban, végül pedig ennek a
+        # változónak az értékét összehasonlítjuk az "Item total:" mezőben szereplő összeggel.
+
         number_of_items = len(checkout_step_two_page.get_items_list())
         items_total = None
         for index in range(number_of_items):
@@ -71,6 +76,11 @@ class TestCheckoutStepTwoPage:
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
 
+        # Az "Item total:" mezőben szereplő összeg lekérése és a "$" jel eltávolítása után float típusra konvertálása
+        # egy változóban, majd a "Tax:" mezőben szereplő összeg lekérése és a "$" jel eltávolítása után float típusra
+        # konvertálása egy változóban, végül pedig az "Item total:" mezőben szereplő összeg és a "Tax:" mezőben
+        # szereplő összeg összeadása és az így kapott érték összehasonlítása a "Total:" mezőben szereplő összeggel,
+        # amelyből szintén eltávolítjuk a "$" jelet és float típusra konvertáljuk.
         item_total_numeric = float(checkout_step_two_page.get_item_total().text.replace("Item total: $", ""))
         tax_numeric = float(checkout_step_two_page.get_tax().text.replace("Tax: $", ""))
         total_numeric = float(checkout_step_two_page.get_total().text.replace("Total: $", ""))
@@ -97,6 +107,12 @@ class TestCheckoutStepTwoPage:
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["first_name"],
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["last_name"],
                                                            CHECKOUT_STEP_ONE_INPUT_VALID_TESTDATA["postal_code"])
+
+        # A "Cancel" gomb megnyomása előtt eltároljuk a jelenlegi URL-t egy változóban, majd megnyomjuk a "Cancel"
+        # gombot, és ezután eltároljuk a jelenlegi URL-t egy másik változóban. Végül pedig összehasonlítjuk a "Cancel"
+        # gomb megnyomása előtt eltárolt URL-t a "Cancel" gomb megnyomása után eltárolt URL-lel úgy, hogy ezek ne
+        # legyenek egyenlőek, és hogy a "Cancel" gomb megnyomása után eltárolt URL megegyezzen a Logged in page
+        # URL-jével, míg a "Cancel" gomb megnyomása előtt eltárolt URL megegyezzen a Checkout Step Two page URL-jével.
         url_before_cancel = checkout_step_two_page.get_current_url()
         checkout_step_two_page.get_button_cancel().click()
         url_after_cancel = logged_in_page.get_current_url()

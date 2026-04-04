@@ -26,6 +26,9 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
+        # A teszteset előfeltétele, hogy a Checkout Complete oldal elérhető legyen a megadott userrel, ezért amennyiben
+        # a navigáció során TimeoutException keletkezik, úgy a teszteset meghiúsultnak tekintendő, és a teszt
+        # sikertelen lesz.
         try:
             checkout_complete_page.goto_checkout_complete_page(
                 user["username"],
@@ -36,6 +39,9 @@ class TestCheckoutCompletePageSmoke:
         except TimeoutException:
             pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
+        # A Checkout Complete oldal URL-jének ellenőrzése is megtörténik, így amennyiben az URL nem egyezik a várt
+        # értékkel, úgy a teszteset szintén meghiúsultnak tekintendő, és a teszt sikertelen lesz, továbbá a hiba
+        # okának megállapítását segítendő a teszt futtatása során egy screenshot is készül az aktuális állapotról.
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
         except AssertionError:
@@ -58,6 +64,9 @@ class TestCheckoutCompletePageSmoke:
         allure.dynamic.tag(f'{user["username"]}')
         checkout_complete_page = pages["checkout_complete_page"]
 
+        # A teszteset előfeltétele, hogy a Checkout Complete oldal elérhető legyen a megadott userrel, ezért amennyiben
+        # a navigáció során TimeoutException keletkezik, úgy a teszteset meghiúsultnak tekintendő, és a teszt
+        # sikertelen lesz.
         try:
             checkout_complete_page.goto_checkout_complete_page(
                 user["username"],
@@ -100,6 +109,9 @@ class TestCheckoutCompletePageSmoke:
         except TimeoutException:
             pytest.fail(f'Az aktuális userrel a Checkout Complete oldal nem érhető el. ({user["username"]})')
 
+        # A Checkout Complete oldal URL-jének ellenőrzése is megtörténik, így amennyiben az URL nem egyezik a várt
+        # értékkel, úgy a teszteset szintén meghiúsultnak tekintendő, és a teszt sikertelen lesz, továbbá a hiba
+        # okának megállapítását segítendő a teszt futtatása során egy screenshot is készül az aktuális állapotról.
         try:
             assert checkout_complete_page.get_current_url() == CHECKOUT_COMPLETE_PAGE_URL_TESTDATA
         except AssertionError:
@@ -138,6 +150,8 @@ class TestCheckoutCompletePageSmoke:
             checkout_complete_page.save_screenshot(f'BH_vis_ch_comp_url_fail_{user["username"]}')
             pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
 
+        # A "Back Home" gomb megjelenésének és interaktivitásának ellenőrzése is megtörténik, így amennyiben a gomb
+        # nem jelenik meg, vagy nem interaktív, úgy a teszteset meghiúsultnak tekintendő, és a teszt sikertelen lesz.
         assert checkout_complete_page.get_back_home_button().is_displayed()
         assert checkout_complete_page.get_back_home_button().is_enabled()
 
@@ -172,6 +186,9 @@ class TestCheckoutCompletePageSmoke:
             checkout_complete_page.save_screenshot(f'BH_funk_ch_comp_url_fail_{user["username"]}')
             pytest.fail(f'Az oldal URL-je nem egyezik meg a Checkout Complete oldal URL-jével. ({user["username"]})')
 
+        # A "Back Home" gomb megnyomása után a visszajutás ellenőrzése is megtörténik, így amennyiben a visszajutás
+        # nem sikerül, úgy a teszteset meghiúsultnak tekintendő, és a teszt sikertelen lesz, továbbá a hiba okának
+        # megállapítását segítendő a teszt futtatása során egy screenshot is készül az aktuális állapotról.
         url_before_click = checkout_complete_page.get_current_url()
         checkout_complete_page.get_back_home_button().click()
         url_after_click = logged_in_page.get_current_url()

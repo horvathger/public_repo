@@ -25,6 +25,8 @@ class TestMainPage:
 
         main_page.do_login(user["username"], user["password"])
 
+        # Ha a user locked_out_user, akkor ellenőrizzük, hogy megjelenik-e a megfelelő hibaüzenet, egyébként pedig
+        # azt, hogy sikeresen be tudott-e lépni.
         if user["username"] == "locked_out_user":
             assert main_page.get_login_error_message().text == LOGIN_ERROR_MESSAGE
         else:

@@ -8,9 +8,6 @@ from POM_Python.Pages.LoggedInPage import LoggedInPage
 from POM_Python.Pages.MainPage import MainPage
 
 
-# URL = 'https://www.saucedemo.com/cart.html'
-
-
 class CartPage(GeneralPage):
     def __init__(self, browser=None):
         super().__init__(browser, CART_PAGE_URL_TESTDATA)

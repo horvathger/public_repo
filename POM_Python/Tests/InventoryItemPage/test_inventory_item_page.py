@@ -21,8 +21,11 @@ class TestInventoryItemPage:
         logged_in_page = pages["logged_in_page"]
         inventory_item_page = pages["inventory_item_page"]
 
+        # A termékek nevének eltárolása egy listában a Logged in page-en
         product_names = [el.text for el in logged_in_page.get_product_name_list()]
 
+        # A termékek nevének összehasonlítása a Logged in page-en és az Inventory item page-en úgy, hogy minden egyes
+        # termékre rákattintunk és megvizsgáljuk a nevét az Inventory item page-en
         for name in product_names:
             products = logged_in_page.get_product_name_list()
 
@@ -52,6 +55,8 @@ class TestInventoryItemPage:
         logged_in_page = pages["logged_in_page"]
         inventory_item_page = pages["inventory_item_page"]
 
+        # A termékek képeinek összehasonlítása a Logged in page-en és az Inventory item page-en úgy, hogy minden egyes
+        # termékre rákattintunk és megvizsgáljuk a képét az Inventory item page-en
         for item in range(len(logged_in_page.get_product_img_list())):
             item_image_main_page = logged_in_page.get_product_img_list()[item].get_attribute("src")
             logged_in_page.get_product_img_list()[item].click()
@@ -75,6 +80,8 @@ class TestInventoryItemPage:
         logged_in_page = pages["logged_in_page"]
         inventory_item_page = pages["inventory_item_page"]
 
+        # A termékek leírásainak összehasonlítása a Logged in page-en és az Inventory item page-en úgy, hogy minden egyes
+        # termékre rákattintunk és megvizsgáljuk a leírását az Inventory item page-en
         for item in range(len(logged_in_page.get_product_description_list())):
             item_description_main_page = logged_in_page.get_product_description_list()[item].text
             logged_in_page.get_product_img_list()[item].click()
@@ -98,6 +105,8 @@ class TestInventoryItemPage:
         logged_in_page = pages["logged_in_page"]
         inventory_item_page = pages["inventory_item_page"]
 
+        # A termékek árainak összehasonlítása a Logged in page-en és az Inventory item page-en úgy, hogy minden egyes
+        # termékre rákattintunk és megvizsgáljuk az árát az Inventory item page-en
         for item in range(len(logged_in_page.get_product_price_list())):
             item_price_main_page = logged_in_page.get_product_price_list()[item].text
             logged_in_page.get_product_img_list()[item].click()

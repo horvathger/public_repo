@@ -12,6 +12,7 @@ from POM_Python.Data.user_testdata import ALLOWED_USERS_LOGIN_DATA
 class TestLoggedInPageSmoke:
 
     @pytest.mark.parametrize("user", ALLOWED_USERS_LOGIN_DATA, ids=[u["username"] for u in ALLOWED_USERS_LOGIN_DATA])
+    # A parametrizálás lehetővé teszi, hogy a teszteset különböző felhasználókkal fusson le.
     @allure.severity(allure.severity_level.TRIVIAL)
     @allure.tag('logged in', 'about', 'fail', 'BT-SAUCE-2026-1', 'SAUCE-US-1')
     def test_hamburger_menu_about_open(self, user, pages):
@@ -21,13 +22,21 @@ class TestLoggedInPageSmoke:
             f'A teszteset célja, hogy {user["username"]} userrel ellenőrizzük a hamburger menüben található About '
             f'menüpont működik-e, új ablakban (tabon) megnyitja-e a saucelabs.com weboldalt.')
         allure.dynamic.tag(f'{user["username"]}')
+        # Az allure.dynamic lehetővé teszi, hogy felhasználónként külön-külön tag-ek jöjjenek létre, mely megkönnyíti
+        # az allure riport értelmezését.
+
         logged_in_page = pages["logged_in_page"]
 
+        # Ellenőrizzük, hogy a menüpont megnyitása előtt és után hány ablak van nyitva, és ezeket elraktározzuk
+        # egy-egy változóba.
         number_of_window_handles_before = logged_in_page.get_number_of_window_handles()
         logged_in_page.get_hamburger_menu_button().click()
         logged_in_page.wait_for_hamburger_menu_to_open()
         logged_in_page.get_hamburger_menu_about().click()
         number_of_window_handles_after = logged_in_page.get_number_of_window_handles()
+
+        #Ellenőrizzük. hogy a saucelabs.com oldal megnyitása után a megnyíló oldal url-je megegyezik-e az elvárt
+        # ABOUT_URL_TESTDATA-val.
         try:
             assert logged_in_page.get_current_url() == ABOUT_URL_TESTDATA
         except AssertionError:
@@ -38,6 +47,9 @@ class TestLoggedInPageSmoke:
         # Üzleti érdek, hogy a webshop ablaka mindenképpen nyitva maradjon és a saucelabs.com egy új ablakban (tabon)
         # nyíljon meg, ezért a teszteset elbukása elfogadható. Amennyiben a saucelabs.com új ablakban (tabon)
         # nyílik meg, akkor a teszteset sikeres lesz.
+
+        # Itt hasonlítjuk össze, hogy elötte és utána hány ablak van nyitva, ezzel meghatározhatjuk, hogy új tabon
+        # nyílik-e meg az új oldal.
         try:
             assert number_of_window_handles_before != number_of_window_handles_after
         except AssertionError:
